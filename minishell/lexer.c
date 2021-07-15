@@ -36,15 +36,6 @@ void	add_token(t_token_list *var, char *type, char *value)
 	new_token->next->next = NULL;
 }
 
-void	display_token(t_token_list *var)
-{
-	while (var != NULL)
-	{
-		printf("%s{%s} type : {%s}\n%s", PURPLE, var->value, var->type, RESET);
-		var = var->next;
-	}
-}
-
 t_token_list	*ft_lexer(char *ln)
 {
 	t_token_list	*var;

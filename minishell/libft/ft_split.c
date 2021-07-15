@@ -14,7 +14,7 @@
 
 char	**leak_f(char **ch, int j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < j)
@@ -26,7 +26,7 @@ char	**leak_f(char **ch, int j)
 	return (NULL);
 }
 
-int		find_word(char const *s1, char c1)
+int	find_word(char const *s1, char c1)
 {
 	int		i;
 	int		j;
@@ -65,7 +65,8 @@ char	*size_word(char const *s2, int *n, char c2)
 		i++;
 	end = i;
 	*n = i;
-	if (!(word = (char*)malloc(sizeof(char) * ((end - start) + 1))))
+	word = (char *)malloc(sizeof(char) * ((end - start) + 1));
+	if (!word)
 		return (NULL);
 	i = 0;
 	while (start < end)
@@ -88,7 +89,8 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	len = find_word(s, c);
-	if (!(dest = (char **)malloc(sizeof(char *) * (len + 1))))
+	dest = (char **)malloc(sizeof(char *) * (len + 1));
+	if (!dest)
 		return (NULL);
 	size = 0;
 	i = 0;

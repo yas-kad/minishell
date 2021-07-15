@@ -38,7 +38,7 @@ void	add_env_node(t_env *env_l, char *name, char *value)
 
 void	free_str(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -51,7 +51,7 @@ void	free_str(char **str)
 
 void	free_env(t_env *lenv)
 {
-	t_env *curr_list;
+	t_env	*curr_list;
 
 	curr_list = lenv;
 	while (curr_list)
@@ -65,30 +65,24 @@ void	free_env(t_env *lenv)
 
 t_env	*create_env_list(t_env *l_env, char **env)
 {
-	char **str;
-	int i;
+	char	**str;
+	int		i;
 
 	i = 0;
+	l_env = NULL;
 	if (env[i])
 	{
-		//*lenv = (t_env *)malloc(sizeof(t_env));
 		str = ft_split(env[i], '=');
-		l_env = initial_env_node(str[0],str[1]);
-		//(*lenv)->name = str[0];
-		//(*lenv)->value = str[1];
+		l_env = initial_env_node(str[0], str[1]);
 		i++;
 		free(str);
 	}
 	while (env[i])
 	{
-		//(*lenv)->next = malloc(sizeof(t_env));
-		//(*lenv) = (*lenv)->next;
 		str = ft_split(env[i], '=');
 		add_env_node(l_env, str[0], str[1]);
-		//(*lenv)->name = str[0];
-		//(*lenv)->value = str[1];
 		free(str);
 		i++;
 	}
-	return(l_env);
+	return (l_env);
 }

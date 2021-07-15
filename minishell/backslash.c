@@ -12,6 +12,29 @@
 
 #include "minishell.h"
 
+int	check_backslash_end(char *value)
+{
+	int	backslash;
+	int	i;
+
+	backslash = 0;
+	i = 0;
+	while (value[i] != '\0')
+	{
+		while (value[i] == '\\')
+		{
+			backslash++;
+			i++;
+		}
+		if (value[i] == '\0')
+			return (backslash);
+		else
+			backslash = 0;
+		i++;
+	}
+	return (backslash);
+}
+
 int	check_backslash(char *line, int i)
 {
 	int	backslash;

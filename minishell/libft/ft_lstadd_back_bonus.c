@@ -14,7 +14,7 @@
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list *l;
+	t_list	*l;
 
 	l = *alst;
 	if (l)

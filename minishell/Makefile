@@ -2,12 +2,32 @@ NAME = minishell
 
 CFLAGS = -Wall -Wextra -Werror
 
-src = shell.c get_symbole.c backslash.c t_word.c\
-		lexer.c expanding.c parse.c env.c
+src = new_str.c add_cmd.c add_redir.c herdocs.c create_cmd_parce.c \
+		shell.c get_symbole.c backslash.c t_word.c\
+		lexer.c expanding.c parse.c env.c\
+		syntax_error.c syntax_error_symb.c\
+		quotes_error.c dollar_name.c print_error.c dollar_value.c\
+		expand_quotes.c new_str.c add_cmd.c add_redir.c herdocs.c \
+		execute/execute.c \
+		execute/env_controle.c \
+		execute/env_controle_2.c \
+		execute/env_set_controle.c \
+		execute/execute_pipes.c \
+		execute/fork.c \
+		execute/execute_redirections.c \
+		builtins/builtin.c \
+		builtins/builtin_cd.c \
+		builtins/builtin_env.c \
+		builtins/builtin_echo.c \
+		builtins/builtin_pwd.c \
+		builtins/builtin_unset.c \
+		builtins/builtin_export.c \
+
 
 libft = ./libft/libft.a
 
-HDRS = ./minishell.h
+HDRS = ./minishell.h # ./builtins/builtin.h ./execute/execute.h \
+# 		./execute/env_controle.h
 
 OBJ = $(src:.c=.o)
 

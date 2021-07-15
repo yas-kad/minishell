@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int		isspace_end(const char *c1, const char *set2)
+int	isspace_end(const char *c1, const char *set2)
 {
 	int		j;
 	int		len_c1;
@@ -37,7 +37,7 @@ int		isspace_end(const char *c1, const char *set2)
 	return (-1);
 }
 
-int		isspace_start(const char *c, const char *set1)
+int	isspace_start(const char *c, const char *set1)
 {
 	int	i;
 	int	j;
@@ -77,12 +77,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 	dest = NULL;
 	if (start >= 0)
 	{
-		if (!(dest = (char*)malloc(sizeof(char) * ((end - start) + 2))))
+		dest = (char *)malloc(sizeof(char) * ((end - start) + 2));
+		if (!dest)
 			return (NULL);
 		while (start <= end)
-		{
 			dest[i++] = s1[start++];
-		}
 		dest[i] = '\0';
 	}
 	else

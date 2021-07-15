@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*l;
 
-	l = (t_list*)malloc(sizeof(t_list));
+	l = (t_list *)malloc(sizeof(t_list));
 	while (l)
 	{
 		l = (*f)(lst->content);
