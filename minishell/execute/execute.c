@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:41:16 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 10:30:26 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 10:53:11 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	init_execute_sequence(t_command *cmd, t_env **env)
 
 int	init_execute_data(t_execute_data *data, t_command *cmd)
 {
+	data->prev = NULL;
 	data->command_count = command_count(cmd);
 	data->pid = (pid_t *)malloc(sizeof(pid_t) * data->command_count);
 	if (!data->pid)

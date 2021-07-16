@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:35:25 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 10:14:51 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 10:45:36 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,8 @@ int	is_bultin(char **cmd)
 	return (FALSE);
 }
 
-static int	exec(t_command *cmd, t_env **env)
+static int	exec_emd(t_command *cmd, t_env **env)
 {
-	int		*redirection_fds;
-
-	redirection_fds = (int *)malloc(sizeof(int) * count_redirection(cmd));
-	if (open_redirection_files(cmd, redirection_fds) == EXIT_FAILURE)
-	{
-		printf("%s\n", strerror(errno));
-		return (EXIT_FAILURE);
-	}
-	set_redirection(cmd, redirection_fds);
 	if (ft_strcmp(cmd->command[0], "echo") == 0)
 		return (builtin_echo(cmd->command));
 	else if (ft_strcmp(cmd->command[0], "cd") == 0)
@@ -58,8 +49,28 @@ static int	exec(t_command *cmd, t_env **env)
 		return (builtin_env(*env));
 	else if (ft_strcmp(cmd->command[0], "exit") == 0)
 		return (builtin_exit(cmd->command));
+	return (EXIT_FAILURE);
+}
+
+static int	exec(t_command *cmd, t_env **env)
+{
+	int		*redirection_fds;
+	int		err;
+	int		ret;
+
+	redirection_fds = (int *)malloc(sizeof(int) * count_redirection(cmd));
+	err = open_redirection_files(cmd, redirection_fds);
+	if (err == EXIT_FAILURE)
+	{
+		printf("%s\n", strerror(errno));
+		return (EXIT_FAILURE);
+	}
+	else if (err == AMBG_REDIR)
+		exit (EXIT_FAILURE);
+	set_redirection(cmd, redirection_fds);
+	ret = exec_emd(cmd, env);
 	free(redirection_fds);
-	return (EXIT_SUCCESS);
+	return (ret);
 }
 
 int	execute_builtins(t_command *cmd, t_env **env)
