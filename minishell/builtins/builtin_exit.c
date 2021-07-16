@@ -42,15 +42,15 @@ static int	is_numeric(char *str)
 int	builtin_exit(char **args)
 {
 	printf("exit\n");
-	if (is_numeric(args[1]))
+	if (count_args(args) < 2)
+		exit (0);
+	else if (is_numeric(args[1]))
 	{
 		printf("exit: %s: numeric argument required\n", args[1]);
 		exit (255);
 	}
 	else if (count_args(args) > 2)
 		printf("exit: too many arguments\n");
-	else if (count_args(args) < 2)
-		exit (0);
 	else
 		exit (ft_atoi(args[1]));
 	return (EXIT_FAILURE);
