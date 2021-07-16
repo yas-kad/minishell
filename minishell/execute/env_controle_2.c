@@ -97,15 +97,14 @@ static void	set_new_value(t_env **env, size_t size, size_t pos, char *arg)
 	ft_strlcpy(name, arg, pos + 1);
 	i = env_find_index(*env, name);
 	if (i < count_env(*env))
+	{
 		while (i--)
 			iter = iter->next;
-	free(name);
-	if (i < count_env(*env))
-	{
+		free(name);
 		name = iter->value;
 		iter->value = value;
-		free(name);
 	}
+free(name);
 }
 
 /*

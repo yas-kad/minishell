@@ -49,10 +49,12 @@ static void	set_pwd(t_env **env, char *old_pwd)
 	char	*op;
 
 	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		return ;
 	p = set_env_var(pwd, "PWD");
 	op = set_env_var(old_pwd, "OLDPWD");
-	insert(env, op);
 	insert(env, p);
+	insert(env, op);
 	free(op);
 	free(p);
 	free(pwd);
@@ -79,8 +81,11 @@ int	builtin_cd(t_env **env, char *line)
 		printf("cd: %s\n", strerror(errno));
 	else
 		set_pwd(env, pwd);
-	free(path);
 	free(pwd);
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		printf("cd1: %s\n", strerror(errno));
+	free(path);
 	if (res == -1)
 		return (EXIT_FAILURE);
 	else

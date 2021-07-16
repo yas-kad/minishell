@@ -18,11 +18,13 @@
 ** @return	: exit status
 */
 
-int	builtin_pwd(void)
+int	builtin_pwd(t_env *env)
 {
 	char	*tmp;
 
 	tmp = getcwd(NULL, 0);
+	if (tmp == NULL)
+		tmp = env_find(env, "PWD");
 	printf("%s\n", tmp);
 	return (EXIT_SUCCESS);
 }

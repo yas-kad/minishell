@@ -29,7 +29,7 @@
 int		is_bultin(char **cmd);
 int		builtin_cd(t_env **env, char *line);
 int		builtin_echo(char **args);
-int		builtin_pwd(void);
+int		builtin_pwd(t_env *env);
 int		builtin_unset(t_env **l_env, char **args);
 int		builtin_env(t_env *env);
 int		builtin_export(t_env **env, char **args);

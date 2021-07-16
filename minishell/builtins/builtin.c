@@ -54,7 +54,7 @@ static int	exec_emd(t_command *cmd, t_env **env)
 	else if (ft_strcmp(cmd->command[0], "cd") == 0)
 		return (builtin_cd(env, cmd->command[1]));
 	else if (ft_strcmp(cmd->command[0], "pwd") == 0)
-		return (builtin_pwd());
+		return (builtin_pwd(*env));
 	else if (ft_strcmp(cmd->command[0], "export") == 0)
 		return (builtin_export(env, cmd->command));
 	else if (ft_strcmp(cmd->command[0], "unset") == 0)
