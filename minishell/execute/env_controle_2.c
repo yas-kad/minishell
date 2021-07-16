@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:07:45 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 13:27:47 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:19:55 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ int	env_element_exits(t_env *env, char *arg)
 
 	size = ft_strlen(arg);
 	i = corp_name(arg);
-	if (i == size)
-		return (FALSE);
 	name = (char *)malloc(sizeof(char) * size);
-	if (!name)
-		return (FALSE);
-	ft_strlcpy(name, arg, i + 1);
+	if (arg[i] == '=' && arg[i - 1] == '+')
+		ft_strlcpy(name, arg, i);
+	else
+		ft_strlcpy(name, arg, i + 1);
 	while (env)
 	{
 		if (ft_strcmp(name, env->name) == 0)
@@ -46,6 +45,69 @@ int	env_element_exits(t_env *env, char *arg)
 	return (FALSE);
 }
 
+size_t	count_env(t_env *env)
+{
+	size_t	res;
+
+	res = 0;
+	while (env)
+	{
+		res++;
+		env = env->next;
+	}
+	return (res);
+}
+
+static void	join_values(t_env **env, size_t size, size_t pos, char *arg)
+{
+	char	*name;
+	char	*value;
+	t_env	*iter;
+	size_t	i;
+
+	iter = *env;
+	name = (char *)malloc(sizeof(char) * size);
+	value = (char *)malloc(sizeof(char) * size);
+	ft_strlcpy(value, arg + pos + 1, ft_strlen(arg + pos));
+	ft_strlcpy(name, arg, pos);
+	i = env_find_index(*env, name);
+	free(name);
+	if (i < count_env(*env))
+	{
+		while (i--)
+			iter = iter->next;
+		name = ft_strjoin(iter->value, value);
+		free(value);
+		free(iter->value);
+		iter->value = name;
+	}
+}
+
+static void	set_new_value(t_env **env, size_t size, size_t pos, char *arg)
+{
+	char	*name;
+	char	*value;
+	t_env	*iter;
+	size_t	i;
+
+	iter = *env;
+	name = (char *)malloc(sizeof(char) * size);
+	value = (char *)malloc(sizeof(char) * size);
+	ft_strlcpy(value, arg + pos + 1, ft_strlen(arg + pos));
+	ft_strlcpy(name, arg, pos + 1);
+	i = env_find_index(*env, name);
+	if (i < count_env(*env))
+		while (i--)
+			iter = iter->next;
+	free(name);
+	if (i < count_env(*env))
+	{
+		name = iter->value;
+		iter->value = value;
+		free(name);
+	}
+}
+
 /*
 ** @breif	: replaces the given element in the env
 ** @param	: env: reference to current env
@@ -55,26 +117,13 @@ int	env_element_exits(t_env *env, char *arg)
 
 void	env_replace_element(t_env **env, char *arg)
 {
-	char	*name;
-	t_env	*iter;
-	char	*value;
 	size_t	i;
 	size_t	size;
 
 	size = ft_strlen(arg);
 	i = corp_name(arg);
-	iter = *env;
-	if (i == size)
-		return ;
-	name = (char *)malloc(sizeof(char) * size);
-	value = (char *)malloc(sizeof(char) * size);
-	ft_strlcpy(name, arg, i + 1);
-	ft_strlcpy(value, arg + i + 1, ft_strlen(arg + i));
-	i = env_find_index(*env, name);
-	while (i--)
-		iter = iter->next;
-	free(name);
-	name = iter->value;
-	iter->value = value;
-	free(name);
+	if (arg[i] == '=' && arg[i - 1] == '+')
+		join_values(env, size, i, arg);
+	else
+		set_new_value(env, size, i, arg);
 }

@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 12:52:35 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 13:35:59 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:22:06 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	env_add_element(t_env **env, char *arg)
 	size = ft_strlen(arg);
 	iter = *env;
 	i = corp_name(arg);
-	if (i == size)
+	if (arg[i] == '=' && arg[i - 1] == '+')
 		return ;
 	new = (t_env *)malloc(sizeof(t_env));
 	new->next = NULL;

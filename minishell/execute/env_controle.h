@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 12:38:16 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/14 11:47:24 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 17:13:00 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include "../minishell.h"
 # include <string.h>
+# include <limits.h>
 
-# define INDEX_NOT_FOUND -256
+# define INDEX_NOT_FOUND INT_MAX
 # define TRUE 0
 # define FALSE 1
 
