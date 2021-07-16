@@ -72,14 +72,14 @@ t_env	*create_env_list(t_env *l_env, char **env)
 	l_env = NULL;
 	if (env[i])
 	{
-		str = ft_split(env[i], '=');
+		str = my_split(env[i]);
 		l_env = initial_env_node(str[0], str[1]);
 		i++;
 		free(str);
 	}
 	while (env[i])
 	{
-		str = ft_split(env[i], '=');
+		str = my_split(env[i]);
 		add_env_node(l_env, str[0], str[1]);
 		free(str);
 		i++;

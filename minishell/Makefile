@@ -8,6 +8,7 @@ src = new_str.c add_cmd.c add_redir.c herdocs.c create_cmd_parce.c \
 		syntax_error.c syntax_error_symb.c\
 		quotes_error.c dollar_name.c print_error.c dollar_value.c\
 		expand_quotes.c new_str.c add_cmd.c add_redir.c herdocs.c \
+		execute/signal_h.c \
 		execute/execute.c \
 		execute/env_controle.c \
 		execute/env_controle_2.c \

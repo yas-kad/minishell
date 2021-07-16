@@ -39,6 +39,7 @@ typedef struct s_execute_data
 	int			new_fds[2];
 }				t_execute_data;
 
+void		sig_handler(int sig_num);
 int			init_execute_sequence(t_command *cmd, t_env **env);
 int			execute_command_list(t_command *cmd, t_env **env);
 void		fd_save(int **fd);
