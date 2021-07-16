@@ -98,20 +98,6 @@ static int	close_and_wait(t_execute_data *data)
 	return (ret);
 }
 
-void	sig_handler(int sig_num)
-{
-	if (sig_num == SIGINT)
-	{
-		printf("\n");
-		g_dollar_question = 130;
-	}
-	else if (sig_num == SIGQUIT)
-	{
-		printf("Quit: 3\n");
-		g_dollar_question = 131;
-	}
-}
-
 /*
 ** @breif	: inits data used for execute set signal handlers
 **				creates pipes if needed and creates a fork foreach command
