@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:38:04 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:18:14 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:51:02 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define TRUE 0
 # define FALSE 1
 # define NOT_FILE 100
+# define AMBG_REDIR 101
 
 # include <unistd.h>
 # include <fcntl.h>

@@ -6,27 +6,29 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:35:25 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:56:25 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 10:14:51 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-int	is_bultin(char *cmd)
+int	is_bultin(char **cmd)
 {
-	if (is_null_or_empty(cmd))
+	if (cmd == NULL)
 		return (FALSE);
-	if (ft_strcmp(cmd, "echo") == 0)
+	else if (ft_strcmp(cmd[0], "echo") == 0)
 		return (TRUE);
-	else if (ft_strcmp(cmd, "cd") == 0)
+	else if (ft_strcmp(cmd[0], "cd") == 0)
 		return (TRUE);
-	else if (ft_strcmp(cmd, "pwd") == 0)
+	else if (ft_strcmp(cmd[0], "pwd") == 0)
 		return (TRUE);
-	else if (ft_strcmp(cmd, "export") == 0)
+	else if (ft_strcmp(cmd[0], "export") == 0)
 		return (TRUE);
-	else if (ft_strcmp(cmd, "unset") == 0)
+	else if (ft_strcmp(cmd[0], "unset") == 0)
 		return (TRUE);
-	else if (ft_strcmp(cmd, "env") == 0)
+	else if (ft_strcmp(cmd[0], "env") == 0)
+		return (TRUE);
+	else if (ft_strcmp(cmd[0], "exit") == 0)
 		return (TRUE);
 	return (FALSE);
 }
@@ -54,6 +56,8 @@ static int	exec(t_command *cmd, t_env **env)
 		return (builtin_unset(env, cmd->command));
 	else if (ft_strcmp(cmd->command[0], "env") == 0)
 		return (builtin_env(*env));
+	else if (ft_strcmp(cmd->command[0], "exit") == 0)
+		return (builtin_exit(cmd->command));
 	free(redirection_fds);
 	return (EXIT_SUCCESS);
 }

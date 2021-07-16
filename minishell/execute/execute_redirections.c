@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:51:45 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:13:21 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 09:51:21 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,25 +87,22 @@ int	open_redirection_files(t_command *cmd, int *fd_list)
 	size_t			counter;
 
 	iter = cmd->redirection;
-	if (iter == NULL)
-		return (EXIT_SUCCESS);
 	counter = 0;
 	while (iter)
 	{
-		if (ft_strcmp(iter->file, "\n") != 0)
-		{
-			if (ft_strcmp(iter->type, REDIR_LESSER) == 0)
-				fd_list[counter] = open(iter->file, O_RDONLY);
-			else if (cmd->command != NULL
-				&& ft_strcmp(iter->type, REDIR_GREATER) == 0)
-				fd_list[counter] = open(iter->file,
-						O_CREAT | O_TRUNC | O_WRONLY, 0644);
-			else if (ft_strcmp(iter->type, DOUBLE_GREATER) == 0)
-				fd_list[counter] = open(iter->file,
-						O_CREAT | O_APPEND | O_WRONLY, 0644);
-			if (fd_list[counter] == -1)
-				return (EXIT_FAILURE);
-		}
+		if (ft_strcmp(iter->file, "\n") == 0)
+			return (AMBG_REDIR);
+		if (ft_strcmp(iter->type, REDIR_LESSER) == 0)
+			fd_list[counter] = open(iter->file, O_RDONLY);
+		else if (cmd->command != NULL
+			&& ft_strcmp(iter->type, REDIR_GREATER) == 0)
+			fd_list[counter] = open(iter->file,
+					O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		else if (ft_strcmp(iter->type, DOUBLE_GREATER) == 0)
+			fd_list[counter] = open(iter->file,
+					O_CREAT | O_APPEND | O_WRONLY, 0644);
+		if (fd_list[counter] == -1)
+			return (EXIT_FAILURE);
 		counter++;
 		iter = iter->next;
 	}

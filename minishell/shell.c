@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yait-kad <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/20 14:40:13 by yait-kad          #+#    #+#             */
-/*   Updated: 2021/03/20 14:40:16 by yait-kad         ###   ########.fr       */
+/*   Updated: 2021/07/16 10:16:39 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **env)
 		{
 			v_main.cmd = ft_parse(v_main.var, v_main.lenv);
 			expanding(v_main.cmd, v_main.lenv);
-			init_execute_sequence(v_main.cmd, &v_main.lenv);
+			g_dollar_question = init_execute_sequence(v_main.cmd, &v_main.lenv);
 			destroy_list_cmd(v_main.cmd);
 			free_list(v_main.var);
 		}

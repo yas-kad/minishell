@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:41:16 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:56:01 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 10:03:16 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	command_count(t_command *cmd)
 
 int	init_execute_sequence(t_command *cmd, t_env **env)
 {
-	if (command_count(cmd) == 1 && is_bultin(cmd->command[0]) == TRUE)
+	if (command_count(cmd) == 1 && is_bultin(cmd->command) == TRUE)
 		execute_builtins(cmd, env);
 	else
 		execute_command_list(cmd, env);
@@ -43,7 +43,7 @@ int	init_execute_data(t_execute_data *data, t_command *cmd)
 	return (EXIT_SUCCESS);
 }
 
-static void		close_and_wait(t_execute_data *data)
+static void	close_and_wait(t_execute_data *data)
 {
 	int		i;
 
@@ -64,6 +64,7 @@ int	execute_command_list(t_command *cmd, t_env **env)
 {
 	t_execute_data	data;
 	int				counter;
+
 	counter = 0;
 	if (init_execute_data(&data, cmd) == EXIT_FAILURE)
 		return (EXIT_FAILURE);

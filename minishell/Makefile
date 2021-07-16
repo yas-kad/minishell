@@ -22,6 +22,7 @@ src = new_str.c add_cmd.c add_redir.c herdocs.c create_cmd_parce.c \
 		builtins/builtin_pwd.c \
 		builtins/builtin_unset.c \
 		builtins/builtin_export.c \
+		builtins/builtin_exit.c \
 
 
 libft = ./libft/libft.a

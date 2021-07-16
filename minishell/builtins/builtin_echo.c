@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 09:29:23 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:46:18 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 10:16:00 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static size_t	check_n(char **args)
 
 int	is_null_or_empty(char *str)
 {
-	if (!str || str[0] == '\0')
+	if (str == NULL || str[0] == '\0')
 		return (TRUE);
 	return (FALSE);
 }
@@ -59,5 +59,5 @@ int	builtin_echo(char **args)
 	i = check_n(args);
 	if (i == 1)
 		write(1, "\n", 1);
-	return (1);
+	return (EXIT_SUCCESS);
 }
