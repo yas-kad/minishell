@@ -6,27 +6,19 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:09:12 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 10:53:20 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:42:56 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 
-int	count_pipes(t_command *cmd)
-{
-	t_command	*iter;
-	int			ret;
-
-	ret = 0;
-	iter = cmd;
-	while (iter)
-	{
-		if (iter->seperator == e_pipe)
-			ret++;
-		iter = iter->next;
-	}
-	return (ret);
-}
+/*
+** @breif	: checks for previous and next command to
+**				accuratly set the read end and write end of the current precces
+** @param	: data:	data used by the execute commands function
+**			  cmd: current command node
+** @return	: N/A
+*/
 
 void	set_pipes(t_execute_data *data, t_command *cmd)
 {
@@ -43,6 +35,17 @@ void	set_pipes(t_execute_data *data, t_command *cmd)
 		close(data->new_fds[1]);
 	}
 }
+
+/*
+** @breif	: opens redirection files and set current pipe and then set
+**				redirections and finally excutes current node
+** @param	: data: data used for execute
+			  cmd: current command node
+			  env: reference to envirement
+** @return	: failure in case of exeve failure otherwise
+**				the precesss of the child is changed to the execute
+**				of the current command
+*/
 
 void	pipe_child_exec(t_execute_data *data, t_command *cmd, t_env **env)
 {
@@ -68,6 +71,14 @@ void	pipe_child_exec(t_execute_data *data, t_command *cmd, t_env **env)
 		printf("%s: command not found\n", cmd->command[0]);
 	exit (EXIT_FAILURE);
 }
+
+/*
+** @breif	: closes the old pipe fds as it no longer used
+			  copies the new pipe into the old pipe
+** @param	: data: data used for execution
+**			  cnd: current command node
+** @return	: N/A
+*/
 
 void	pipe_parent_exec(t_execute_data *data, t_command *cmd)
 {

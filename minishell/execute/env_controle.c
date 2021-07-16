@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 11:06:17 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:01:36 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:30:33 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ static size_t	count_env_elements(t_env *env)
 	return (i);
 }
 
+/*
+** @breif	: prints the envirenment
+** @param	: env: current env
+** @return	: N/A
+*/
+
 void	print_t_env(t_env *env)
 {
 	t_env	*iter;
@@ -38,6 +44,12 @@ void	print_t_env(t_env *env)
 		iter = iter->next;
 	}
 }
+
+/*
+** @breif	: transforms the env to a 2d array
+** @param	: env: current env
+** @return	: 2d array holding all the data of the env
+*/
 
 char	**env_from_t_env_to_2d_array(t_env *env)
 {
@@ -64,6 +76,13 @@ char	**env_from_t_env_to_2d_array(t_env *env)
 	return (res);
 }
 
+/*
+** @breif	: returns the value of a certain element in the env
+** @param	: env: current env
+			  key" the key witch ae are looking for
+** @return	: the new char * holding the value
+*/
+
 char	*env_find(t_env *env, char *key)
 {
 	while (env)
@@ -74,6 +93,12 @@ char	*env_find(t_env *env, char *key)
 	}
 	return (NULL);
 }
+
+/*
+** @breif	: frees 2d array
+** @param	: arr: reference to the double pointer array
+** @return	: N/A
+*/
 
 void	free_2d_array(char ***arr)
 {

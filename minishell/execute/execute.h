@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:38:04 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 09:51:02 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 11:48:10 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int			init_execute_sequence(t_command *cmd, t_env **env);
 int			execute_command_list(t_command *cmd, t_env **env);
 void		fd_save(int **fd);
 void		fd_restore(int **fd);
-int			count_pipes(t_command *cmd);
 void		pipe_child_exec(t_execute_data *data, t_command *cmd, t_env **env);
 void		pipe_parent_exec(t_execute_data *data, t_command *cmd);
 int			ft_execve(t_command *node, t_env **env);

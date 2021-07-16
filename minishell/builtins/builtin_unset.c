@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 10:33:14 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 14:52:26 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:17:33 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ static int	find_element(t_env *env, char *arg)
 	}
 	return (FALSE);
 }
+
+/*
+** @breif	: removes passed param from env
+** @param	: l_env: reference to current env
+			  args: params to remove
+** @return	: exit status
+*/
 
 int	builtin_unset(t_env **l_env, char **args)
 {

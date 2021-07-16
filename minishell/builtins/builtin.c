@@ -6,11 +6,18 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:35:25 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 10:45:36 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 11:46:48 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
+
+/*
+** @breif	: checks if the passed command and args list is not null
+**				and a valid built
+** @param	: cmd: list of args and command to execute
+** @return	: TRUE if it a builtin other ise FALSE
+*/
 
 int	is_bultin(char **cmd)
 {
@@ -33,6 +40,13 @@ int	is_bultin(char **cmd)
 	return (FALSE);
 }
 
+/*
+** @breif	: executes the appropriate builtin command
+** @param	: cmd:	command node to execute
+**			  env: reference to current env
+** @return	: exit status of executed command
+*/
+
 static int	exec_emd(t_command *cmd, t_env **env)
 {
 	if (ft_strcmp(cmd->command[0], "echo") == 0)
@@ -51,6 +65,14 @@ static int	exec_emd(t_command *cmd, t_env **env)
 		return (builtin_exit(cmd->command));
 	return (EXIT_FAILURE);
 }
+
+/*
+** @breif	: opens redirection files and sets correct redirection
+**				and executing current command node
+** @param	: cmd:	comcurrent command to execute
+**			  env: reference to current envirenment
+** @return	:
+*/
 
 static int	exec(t_command *cmd, t_env **env)
 {
@@ -72,6 +94,13 @@ static int	exec(t_command *cmd, t_env **env)
 	free(redirection_fds);
 	return (ret);
 }
+
+/*
+** @breif	: saves current std_fds executes command and restores std_fds
+** @param	: cmd: command list
+**			  env: current envirement
+** @return	: exit status of executed command
+*/
 
 int	execute_builtins(t_command *cmd, t_env **env)
 {

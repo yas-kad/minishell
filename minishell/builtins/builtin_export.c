@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:29:14 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 14:49:44 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:15:28 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ static void	export_display(t_env *env)
 		iter = iter->next;
 	}
 }
+
+/*
+** @breif	: inserts passed arguments to the env
+**				if no arguments are passed displays the env
+** @param	: env: reference to current env
+			  args: arguments passed
+** @return	: exit status
+*/
 
 int	builtin_export(t_env **env, char **args)
 {

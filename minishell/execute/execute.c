@@ -6,11 +6,18 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 10:41:16 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 10:53:11 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 11:57:05 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
+
+/*
+** @breif	: counts number of command nodes
+**
+** @param	: cmd:	commands linked list
+** @return	: the number of commands
+*/
 
 int	command_count(t_command *cmd)
 {
@@ -25,6 +32,15 @@ int	command_count(t_command *cmd)
 	return (res);
 }
 
+/*
+** @breif	: starts the execution of commands from list while checking for
+**				builtin or externals
+**
+** @param	: cmd: commands linked list
+**			  env: reference to current envirenment list
+** @return	: exit status
+*/
+
 int	init_execute_sequence(t_command *cmd, t_env **env)
 {
 	if (command_count(cmd) == 1 && is_bultin(cmd->command) == TRUE)
@@ -33,6 +49,13 @@ int	init_execute_sequence(t_command *cmd, t_env **env)
 		return (execute_command_list(cmd, env));
 	return (EXIT_FAILURE);
 }
+
+/*
+** @breif	: inits the data used by the execute command list function
+** @param	: data: reference to the data structure used by execute function
+			  cmd:	commands linked list
+** @return	: exit status of the memory allocation
+*/
 
 int	init_execute_data(t_execute_data *data, t_command *cmd)
 {
@@ -43,6 +66,13 @@ int	init_execute_data(t_execute_data *data, t_command *cmd)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
+
+/*
+** @breif	: closes the latest pipe opened in execute list
+**				and frees the pid list allocated in init_execute_data
+** @param	: data:	reference to the data used by execute function
+** @return	: exit status of the last child process
+*/
 
 static int	close_and_wait(t_execute_data *data)
 {
@@ -62,6 +92,7 @@ static int	close_and_wait(t_execute_data *data)
 		waitpid(data->pid[i], &status, 0);
 		i++;
 	}
+	free(data->pid);
 	if (WIFEXITED(status))
 		ret = WEXITSTATUS(status);
 	return (ret);
@@ -80,6 +111,13 @@ void	sig_handler(int sig_num)
 		g_dollar_question = 131;
 	}
 }
+
+/*
+** @breif	: inits data used for execute set signal handlers
+**				creates pipes if needed and creates a fork foreach command
+** @param	: cmd:	command list
+** @return	: exit status of the last executeed command
+*/
 
 int	execute_command_list(t_command *cmd, t_env **env)
 {

@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:51:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:51:22 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:41:16 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ static char	**bring_all_paths(t_env *env)
 		return (NULL);
 	return (ft_split(bin, ':'));
 }
+
+/*
+** @breif	: calls external command needed after looking all bin path set in
+**				env variable path
+** @param	: node: current commande node
+			  env: reference to env
+** @return	: return error code sent by execve otherwise
+**				the calling process is changed to the new one
+*/
 
 int	ft_execve(t_command *node, t_env **env)
 {

@@ -6,11 +6,18 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 12:52:35 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:03:24 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:35:59 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_controle.h"
+
+/*
+** @breif	: returns the index to a certain value
+** @param	: env: current env
+			  value: the desired value
+** @return	: index in env of that value
+*/
 
 size_t	env_find_index(t_env *env, char *value)
 {
@@ -29,6 +36,12 @@ size_t	env_find_index(t_env *env, char *value)
 	return (INDEX_NOT_FOUND);
 }
 
+/*
+** @breif	: returns the index of the first occurence of =
+** @param	: str: string on witch we want the =
+** @return	: the index of the = sign
+*/
+
 size_t	corp_name(char *str)
 {
 	size_t	i;
@@ -38,6 +51,13 @@ size_t	corp_name(char *str)
 		i++;
 	return (i);
 }
+
+/*
+** @breif	: adds the given arg to the current env
+** @param	: env: reference to the env
+			  arg: variable to add to env
+** @return	: N/A
+*/
 
 void	env_add_element(t_env **env, char *arg)
 {
@@ -66,6 +86,13 @@ void	env_add_element(t_env **env, char *arg)
 		iter->next = new;
 	}
 }
+
+/*
+** @breif	: removes element at index from env
+** @param	: env: reference to the env
+			  index: index of the element to remove
+** @return	: N/A
+*/
 
 void	env_delete_element_at(t_env **env, size_t index)
 {

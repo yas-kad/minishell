@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:51:45 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 10:35:29 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:39:20 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ static void	ft_dup_heredoc(char *file)
 	close(heredoc_pipe[0]);
 	close(heredoc_pipe[1]);
 }
+
+/*
+** @breif	: sets the appropriate rederiction from the list of
+**				fds based on it's tag
+** @param	: cmd: current command node
+			  fd_list: list of file dicriptors to redirect to / from
+** @return	: exit status
+*/
 
 int	set_redirection(t_command *cmd, int *fd_list)
 {
@@ -56,9 +64,9 @@ int	set_redirection(t_command *cmd, int *fd_list)
 }
 
 /*
-**	@BREIF: This function will count number of files to create for redirction
-**	counts all types of redirction except Heredocs
-**	because heredocs operates at a pipe
+** @breif	: counts the number of file discreptors needed
+** @param	: cmd: current command node
+** @return	: the number of fd needed
 */
 
 size_t	count_redirection(t_command *cmd)
@@ -78,7 +86,10 @@ size_t	count_redirection(t_command *cmd)
 }
 
 /*
-**	that check for double lesser removed
+** @breif	: opens the fd needed for redirection
+** @param	: cmd: current command node
+**			  fd_list: list to hold opened fds
+** @return	:
 */
 
 int	open_redirection_files(t_command *cmd, int *fd_list)

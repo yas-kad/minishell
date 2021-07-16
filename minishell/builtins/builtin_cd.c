@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 13:52:14 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 14:48:26 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:41:42 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ static void	set_pwd(t_env **env, char *old_pwd)
 	free(pwd);
 }
 
+/*
+** @breif	: configures the path and then changes directory to the new path
+**				updates PWD / OLDPWD env variables
+** @param	: env:	reference to envirenment
+			  line: the desired directory to move to
+** @return	:
+*/
+
 int	builtin_cd(t_env **env, char *line)
 {
 	int		res;
@@ -68,10 +76,13 @@ int	builtin_cd(t_env **env, char *line)
 	pwd = getcwd(NULL, 0);
 	res = chdir(path);
 	if (res == -1)
-		printf("%s\n", strerror(errno));
+		printf("cd: %s\n", strerror(errno));
 	else
 		set_pwd(env, pwd);
 	free(path);
 	free(pwd);
-	return (res);
+	if (res == -1)
+		return (EXIT_FAILURE);
+	else
+		return (EXIT_SUCCESS);
 }

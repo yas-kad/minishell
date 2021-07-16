@@ -6,11 +6,18 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:07:45 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 15:00:26 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:27:47 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env_controle.h"
+
+/*
+** @breif	: confirms whether an elemts is present inside the env
+** @param	: env: current env
+			  arg: the element to confirm
+** @return	: True if exits False if not
+*/
 
 int	env_element_exits(t_env *env, char *arg)
 {
@@ -38,6 +45,13 @@ int	env_element_exits(t_env *env, char *arg)
 	free(name);
 	return (FALSE);
 }
+
+/*
+** @breif	: replaces the given element in the env
+** @param	: env: reference to current env
+			  arg: the element to replace
+** @return	: N/A
+*/
 
 void	env_replace_element(t_env **env, char *arg)
 {

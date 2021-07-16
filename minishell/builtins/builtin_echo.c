@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 09:29:23 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 10:16:00 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 12:06:32 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ int	is_null_or_empty(char *str)
 		return (TRUE);
 	return (FALSE);
 }
+
+/*
+** @breif	: prints the list of passed args
+**			  option: -n removes \n at the end
+** @param	: args: list of arguments to print
+				if arg[0] == 'n' it's an option
+** @return	: exit_status
+*/
 
 int	builtin_echo(char **args)
 {

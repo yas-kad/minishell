@@ -6,14 +6,23 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 10:05:00 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/15 14:51:00 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 13:16:39 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
+/*
+** @breif	: prints current Diroctory
+** @param	: N/A
+** @return	: exit status
+*/
+
 int	builtin_pwd(void)
 {
-	printf("%s\n", getcwd(NULL, 0));
+	char	*tmp;
+
+	tmp = getcwd(NULL, 0);
+	printf("%s\n", tmp);
 	return (EXIT_SUCCESS);
 }
