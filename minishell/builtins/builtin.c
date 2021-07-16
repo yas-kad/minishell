@@ -66,7 +66,7 @@ static int	exec(t_command *cmd, t_env **env)
 		return (EXIT_FAILURE);
 	}
 	else if (err == AMBG_REDIR)
-		exit (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	set_redirection(cmd, redirection_fds);
 	ret = exec_emd(cmd, env);
 	free(redirection_fds);
@@ -76,16 +76,17 @@ static int	exec(t_command *cmd, t_env **env)
 int	execute_builtins(t_command *cmd, t_env **env)
 {
 	int		save_fds[3];
+	int		ret;
 
 	save_fds[0] = dup(STDIN_FILENO);
 	save_fds[1] = dup(STDOUT_FILENO);
 	save_fds[2] = dup(STDERR_FILENO);
-	exec(cmd, env);
+	ret = exec(cmd, env);
 	dup2(save_fds[0], STDIN_FILENO);
 	dup2(save_fds[1], STDOUT_FILENO);
 	dup2(save_fds[2], STDERR_FILENO);
 	close(save_fds[0]);
 	close(save_fds[1]);
 	close(save_fds[2]);
-	return (EXIT_SUCCESS);
+	return (ret);
 }

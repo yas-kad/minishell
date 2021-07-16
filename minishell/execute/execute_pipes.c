@@ -48,6 +48,7 @@ void	pipe_child_exec(t_execute_data *data, t_command *cmd, t_env **env)
 {
 	int		*redirection_fds;
 	int		err;
+
 	redirection_fds = (int *)malloc(sizeof(int) * count_redirection(cmd));
 	err = open_redirection_files(cmd, redirection_fds);
 	if (err == EXIT_FAILURE)

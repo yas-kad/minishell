@@ -28,10 +28,10 @@ int	command_count(t_command *cmd)
 int	init_execute_sequence(t_command *cmd, t_env **env)
 {
 	if (command_count(cmd) == 1 && is_bultin(cmd->command) == TRUE)
-		execute_builtins(cmd, env);
+		return (execute_builtins(cmd, env));
 	else
-		execute_command_list(cmd, env);
-	return (EXIT_SUCCESS);
+		return (execute_command_list(cmd, env));
+	return (EXIT_FAILURE);
 }
 
 int	init_execute_data(t_execute_data *data, t_command *cmd)
@@ -44,11 +44,14 @@ int	init_execute_data(t_execute_data *data, t_command *cmd)
 	return (EXIT_SUCCESS);
 }
 
-static void	close_and_wait(t_execute_data *data)
+static int	close_and_wait(t_execute_data *data)
 {
 	int		i;
+	int		status;
+	int		ret;
 
 	i = 0;
+	ret = 0;
 	if (data->command_count > 1)
 	{
 		close(data->old_fds[0]);
@@ -56,8 +59,25 @@ static void	close_and_wait(t_execute_data *data)
 	}
 	while (i < data->command_count)
 	{
-		waitpid(data->pid[i], 0, 0);
+		waitpid(data->pid[i], &status, 0);
 		i++;
+	}
+	if (WIFEXITED(status))
+		ret = WEXITSTATUS(status);
+	return (ret);
+}
+
+void	sig_handler(int sig_num)
+{
+	if (sig_num == SIGINT)
+	{
+		printf("\n");
+		g_dollar_question = 130;
+	}
+	else if (sig_num == SIGQUIT)
+	{
+		printf("Quit: 3\n");
+		g_dollar_question = 131;
 	}
 }
 
@@ -71,6 +91,8 @@ int	execute_command_list(t_command *cmd, t_env **env)
 		return (EXIT_FAILURE);
 	while (cmd)
 	{
+		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, sig_handler);
 		if (cmd->next != NULL)
 			if (pipe(data.new_fds) == -1)
 				return (EXIT_FAILURE);
@@ -85,6 +107,5 @@ int	execute_command_list(t_command *cmd, t_env **env)
 		data.prev = cmd;
 		cmd = cmd->next;
 	}
-	close_and_wait(&data);
-	return (EXIT_SUCCESS);
+	return (close_and_wait(&data));
 }
