@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:51:45 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 09:51:21 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 10:35:29 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	open_redirection_files(t_command *cmd, int *fd_list)
 	{
 		if (ft_strcmp(iter->file, "\n") == 0)
 			return (AMBG_REDIR);
-		if (ft_strcmp(iter->type, REDIR_LESSER) == 0)
+		else if (ft_strcmp(iter->type, REDIR_LESSER) == 0)
 			fd_list[counter] = open(iter->file, O_RDONLY);
 		else if (cmd->command != NULL
 			&& ft_strcmp(iter->type, REDIR_GREATER) == 0)

@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 14:09:12 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 10:12:42 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 10:37:14 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	pipe_child_exec(t_execute_data *data, t_command *cmd, t_env **env)
 {
 	int		*redirection_fds;
 	int		err;
-
 	redirection_fds = (int *)malloc(sizeof(int) * count_redirection(cmd));
 	err = open_redirection_files(cmd, redirection_fds);
 	if (err == EXIT_FAILURE)
@@ -56,13 +55,13 @@ void	pipe_child_exec(t_execute_data *data, t_command *cmd, t_env **env)
 		printf("%s\n", strerror(errno));
 		exit (EXIT_FAILURE);
 	}
-	else
+	else if (err == AMBG_REDIR)
 		exit (EXIT_FAILURE);
 	set_pipes(data, cmd);
 	set_redirection(cmd, redirection_fds);
 	if (is_bultin(cmd->command) == TRUE)
 		exit (execute_builtins(cmd, env));
-	if (ft_execve(cmd, env) == NOT_FILE)
+	else if (ft_execve(cmd, env) == NOT_FILE)
 		printf("%s: is a directory\n", cmd->command[0]);
 	else
 		printf("%s: command not found\n", cmd->command[0]);
