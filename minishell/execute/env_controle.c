@@ -40,7 +40,8 @@ void	print_t_env(t_env *env)
 	iter = env;
 	while (iter)
 	{
-		printf("%s=%s\n", iter->name, iter->value);
+		if (iter->value[0] != 0)
+			printf("%s=%s\n", iter->name, iter->value);
 		iter = iter->next;
 	}
 }

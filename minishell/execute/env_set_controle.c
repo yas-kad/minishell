@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "env_controle.h"
+#include "../libft/libft.h"
 
 /*
 ** @breif	: returns the index to a certain value
@@ -59,6 +60,15 @@ size_t	corp_name(char *str)
 ** @return	: N/A
 */
 
+static void	alloc_data(t_env **data, size_t size)
+{
+	t_env *new = *data;
+
+	new->next = NULL;
+	new->name = (char *)malloc(sizeof(char) * size);
+	new->value = (char *)malloc(sizeof(char) * size);
+}
+
 void	env_add_element(t_env **env, char *arg)
 {
 	t_env	*new;
@@ -72,11 +82,12 @@ void	env_add_element(t_env **env, char *arg)
 	if (arg[i] == '=' && arg[i - 1] == '+')
 		return ;
 	new = (t_env *)malloc(sizeof(t_env));
-	new->next = NULL;
-	new->name = (char *)malloc(sizeof(char) * size);
-	new->value = (char *)malloc(sizeof(char) * size);
+	alloc_data(&new, size);
 	ft_strlcpy(new->name, arg, i + 1);
-	ft_strlcpy(new->value, arg + i + 1, ft_strlen(arg + i));
+	if (i < size)
+		ft_strlcpy(new->value, arg + i + 1, ft_strlen(arg + i));
+	else
+		new->value[0] = 0;
 	if (*env == NULL)
 		*env = new;
 	else
