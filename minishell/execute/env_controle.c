@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 11:06:17 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 13:30:33 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 19:30:31 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	print_t_env(t_env *env)
 	iter = env;
 	while (iter)
 	{
-		if (iter->value[0] != 0)
+		if (iter->value != NULL)
 			printf("%s=%s\n", iter->name, iter->value);
 		iter = iter->next;
 	}

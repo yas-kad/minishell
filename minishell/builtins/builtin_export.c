@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:29:14 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 13:15:28 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 19:30:46 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ static void	export_display(t_env *env)
 	while (iter)
 	{
 		if (ft_strcmp(iter->name, "_") != 0)
-			printf("declare -x %s=\"%s\"\n", iter->name, iter->value);
+		{
+			if (iter->value != NULL)
+				printf("declare -x %s=\"%s\"\n", iter->name, iter->value);
+			else
+				printf("declare -x %s\n", iter->name);
+		}
 		iter = iter->next;
 	}
 }

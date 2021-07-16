@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 13:52:14 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 13:41:42 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 19:01:18 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	insert(t_env **env, char *arg)
 		env_replace_element(env, arg);
 }
 
-static void	set_pwd(t_env **env, char *old_pwd)
+static void	set_pwd(t_env **env, char *old_pwd, char *line)
 {
 	char	*pwd;
 	char	*p;
@@ -50,7 +50,7 @@ static void	set_pwd(t_env **env, char *old_pwd)
 
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
-		return ;
+		pwd = ft_strjoin(old_pwd, ft_strjoin("/", line));
 	p = set_env_var(pwd, "PWD");
 	op = set_env_var(old_pwd, "OLDPWD");
 	insert(env, p);
@@ -76,15 +76,21 @@ int	builtin_cd(t_env **env, char *line)
 
 	path = set_path(env, line);
 	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		pwd = env_find(*env, "PWD");
 	res = chdir(path);
 	if (res == -1)
+	{
 		printf("cd: %s\n", strerror(errno));
+		return (EXIT_FAILURE);
+	}
 	else
-		set_pwd(env, pwd);
+		set_pwd(env, pwd, line);
 	free(pwd);
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
-		printf("cd1: %s\n", strerror(errno));
+		printf("cd: error retrieving current directory: getcwd:\
+		cannot access parent directories:  %s\n", strerror(errno));
 	free(path);
 	if (res == -1)
 		return (EXIT_FAILURE);

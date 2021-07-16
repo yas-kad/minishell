@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:51:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 13:41:16 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 19:38:28 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,24 @@ int	ft_execve(t_command *node, t_env **env)
 	char	**all_bin;
 	char	*path;
 	char	**cc;
-	int		error;
 	int		i;
 
 	cc = env_from_t_env_to_2d_array(*env);
 	all_bin = bring_all_paths(*env);
-	error = 0;
 	if (is_dir(node->command[0]))
 		return (NOT_FILE);
 	i = 0;
-	if (is_null_or_empty(node->command[0]) != TRUE && all_bin != NULL)
+	if (is_null_or_empty(node->command[0]) != TRUE)
 	{
-		error = execve(node->command[0], node->command, cc);
-		while (all_bin[i] != NULL)
-		{
-			error = 0;
-			path = set_path(node->command[0], all_bin[i]);
-			error = execve(path, node->command, cc);
-			free(path);
-			i++;
-		}
+		execve(node->command[0], node->command, cc);
+		if (all_bin != NULL)
+			while (all_bin[i] != NULL)
+			{
+				path = set_path(node->command[0], all_bin[i]);
+				execve(path, node->command, cc);
+				free(path);
+				i++;
+			}
 	}
-	return (error);
+	return (EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 12:52:35 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 17:22:06 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/16 19:29:53 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void	env_add_element(t_env **env, char *arg)
 	if (i < size)
 		ft_strlcpy(new->value, arg + i + 1, ft_strlen(arg + i));
 	else
-		new->value[0] = 0;
+	{
+		free(new->value);
+		new->value = NULL;
+	}
 	if (*env == NULL)
 		*env = new;
 	else
