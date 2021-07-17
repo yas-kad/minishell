@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 15:29:14 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 19:30:46 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/17 08:01:32 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int	builtin_export(t_env **env, char **args)
 	{
 		while (args[i])
 		{
-			if (env_element_exits(*env, args[i]) == FALSE)
+			if (ft_strcmp(args[i], "+=") == 0)
+				printf("export: `+=': not a valid identifier\n");
+			else if (env_element_exits(*env, args[i]) == FALSE)
 				env_add_element(env, args[i]);
 			else
 				env_replace_element(env, args[i]);
