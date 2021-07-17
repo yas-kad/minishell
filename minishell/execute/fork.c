@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 15:51:47 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 19:38:28 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/17 07:55:14 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	ft_execve(t_command *node, t_env **env)
 	{
 		execve(node->command[0], node->command, cc);
 		if (all_bin != NULL)
+		{
 			while (all_bin[i] != NULL)
 			{
 				path = set_path(node->command[0], all_bin[i]);
@@ -75,6 +76,7 @@ int	ft_execve(t_command *node, t_env **env)
 				free(path);
 				i++;
 			}
+		}
 	}
 	return (EXIT_FAILURE);
 }

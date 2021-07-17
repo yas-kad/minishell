@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/10 12:52:35 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 19:29:53 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/17 07:54:46 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,30 @@ size_t	corp_name(char *str)
 	return (i);
 }
 
+static void	alloc_data(t_env **data, size_t size, char *arg, size_t i)
+{
+	t_env	*new;
+
+	new = *data;
+	new->next = NULL;
+	new->name = (char *)malloc(sizeof(char) * size);
+	new->value = (char *)malloc(sizeof(char) * size);
+	ft_strlcpy(new->name, arg, i + 1);
+	if (i < size)
+		ft_strlcpy(new->value, arg + i + 1, ft_strlen(arg + i));
+	else
+	{
+		free(new->value);
+		new->value = NULL;
+	}
+}
+
 /*
 ** @breif	: adds the given arg to the current env
 ** @param	: env: reference to the env
 			  arg: variable to add to env
 ** @return	: N/A
 */
-
-static void	alloc_data(t_env **data, size_t size)
-{
-	t_env *new = *data;
-
-	new->next = NULL;
-	new->name = (char *)malloc(sizeof(char) * size);
-	new->value = (char *)malloc(sizeof(char) * size);
-}
 
 void	env_add_element(t_env **env, char *arg)
 {
@@ -83,14 +92,6 @@ void	env_add_element(t_env **env, char *arg)
 		return ;
 	new = (t_env *)malloc(sizeof(t_env));
 	alloc_data(&new, size);
-	ft_strlcpy(new->name, arg, i + 1);
-	if (i < size)
-		ft_strlcpy(new->value, arg + i + 1, ft_strlen(arg + i));
-	else
-	{
-		free(new->value);
-		new->value = NULL;
-	}
 	if (*env == NULL)
 		*env = new;
 	else

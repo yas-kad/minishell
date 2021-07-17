@@ -6,7 +6,7 @@
 /*   By: ikhadem <ikhadem@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:07:45 by ikhadem           #+#    #+#             */
-/*   Updated: 2021/07/16 17:19:55 by ikhadem          ###   ########.fr       */
+/*   Updated: 2021/07/17 07:52:04 by ikhadem          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	set_new_value(t_env **env, size_t size, size_t pos, char *arg)
 		name = iter->value;
 		iter->value = value;
 	}
-free(name);
+	free(name);
 }
 
 /*
