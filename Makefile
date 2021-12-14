@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 src = new_str.c add_cmd.c add_redir.c herdocs.c create_cmd_parce.c \
 		shell.c get_symbole.c backslash.c t_word.c\
-		lexer.c expanding.c parse.c env.c\
+		lexer.c delete_empty_args.c expanding.c parse.c env.c\
 		syntax_error.c syntax_error_symb.c\
 		quotes_error.c dollar_name.c print_error.c dollar_value.c\
 		expand_quotes.c new_str.c add_cmd.c add_redir.c herdocs.c \

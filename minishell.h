@@ -127,6 +127,7 @@ typedef struct s_herdocs
 	size_t	len;
 }				t_herdocs;
 
+void			delete_empty(char ***args);
 t_env			*create_env_list(t_env *lenv, char **env);
 t_token_list	*ft_lexer(char *line);
 char			*treat_heredocs(char *delimiter, t_env *lenv);

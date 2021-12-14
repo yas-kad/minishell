@@ -47,6 +47,7 @@ void	expand_command(t_command *cmd_c, t_env *env_list)
 		}
 		i++;
 	}
+	delete_empty(&cmd_c->command);
 }
 
 int	ex_redir(char **file, int i, t_env *env_r)
